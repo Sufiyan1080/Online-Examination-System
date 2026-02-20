@@ -112,9 +112,5 @@ function monitoring_logs(): array
 function add_monitor_log(int $userId, string $eventType, string $details): bool
 {
     $stmt = db()->prepare('INSERT INTO monitoring_logs (user_id, event_type, details, created_at) VALUES (:user_id, :event_type, :details, NOW())');
-    return $stmt->execute([
-        'user_id' => $userId,
-        'event_type' => $eventType,
-        'details' => $details,
-    ]);
+    return $stmt->execute(compact('user_id', 'event_type', 'details'));
 }
